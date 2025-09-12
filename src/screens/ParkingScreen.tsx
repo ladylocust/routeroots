@@ -1,23 +1,9 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+// Fallback wrapper: always re-exports the correct Parking screen
+// This wrapper makes TypeScript happy and ensures imports always work.
+import { Platform } from 'react-native';
+import NativeParkingScreen from './ParkingScreen.native';
+import WebParkingScreen from './ParkingScreen.web';
 
-export default function ParkingScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Parking & Amenities</Text>
-    </View>
-  );
-}
+const ParkingScreen = Platform.OS === 'web' ? WebParkingScreen : NativeParkingScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-});
-
+export default ParkingScreen;
